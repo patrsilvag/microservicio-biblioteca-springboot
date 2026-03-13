@@ -21,14 +21,19 @@ public class LibroService {
 
     // POST - crear libro
     public Libro crearLibro(Libro libro) {
-        // 1. Usamos existsBy para verificar presencia sin importar cuántos haya
-        if (libroRepository.existsByTituloAndAutor(libro.getTitulo(), libro.getAutor())) {
+        // NORMALIZACIÓN: Evita duplicados por espacios o mayúsculas
+        String tituloNorm = libro.getTitulo().trim().toUpperCase();
+        String autorNorm = libro.getAutor().trim().toUpperCase();
+
+        if (libroRepository.existsByTituloAndAutor(tituloNorm, autorNorm)) {
             throw new RuntimeException(
-                    "El libro '" + libro.getTitulo() + "' de " + libro.getAutor()
-                            + " ya está registrado en el sistema.");
+                    "El libro '" + libro.getTitulo().trim() + "' de " + libro.getAutor().trim()
+                            + " ya está registrado.");
         }
 
-        // 2. Forzamos el ID a null para que sea siempre un INSERT
+        // Guardamos los datos limpios para mantener la DB consistente
+        libro.setTitulo(tituloNorm);
+        libro.setAutor(autorNorm);
         libro.setId(null);
         return libroRepository.save(libro);
     }

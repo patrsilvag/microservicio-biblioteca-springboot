@@ -31,8 +31,8 @@ public class LibroController {
 
     // POST - crear libro
     @PostMapping
-    public Libro crearLibro(@RequestBody Libro libro) {
-        return libroService.crearLibro(libro);
+    public ResponseEntity<Libro> crearLibro(@RequestBody Libro libro) {
+        return new ResponseEntity<>(libroService.crearLibro(libro), org.springframework.http.HttpStatus.CREATED);
     }
 
     // PUT - actualizar libro
@@ -43,7 +43,8 @@ public class LibroController {
 
     // DELETE - eliminar libro
     @DeleteMapping("/{id}")
-    public void eliminarLibro(@PathVariable Long id) {
+    public ResponseEntity<Void> eliminarLibro(@PathVariable Long id) {
         libroService.eliminarLibro(id);
+        return ResponseEntity.noContent().build(); // Devuelve 204 No Content (Estándar profesional)
     }
 }
