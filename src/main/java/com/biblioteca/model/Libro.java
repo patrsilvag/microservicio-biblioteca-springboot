@@ -7,6 +7,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
+
 @Entity
 @Table(name = "Libro")
 public class Libro {
@@ -16,15 +22,21 @@ public class Libro {
     @Column(name = "ID")
     private Long id;
 
+    @NotBlank(message = "El título no puede estar vacío")
+    @Size(min = 2, max = 100, message = "El título debe tener entre 2 y 100 caracteres.")
     @Column(name = "TITULO")
     private String titulo;
 
+    @NotBlank(message = "El autor no puede estar vacío")
     @Column(name = "AUTOR")
     private String autor;
 
+    @NotNull(message = "El año de publicación no puede ser nulo.")
+    @Min(value = 1000, message = "El año debe ser mayor a 1000.")
     @Column(name = "ANIO_PUBLICACION")
     private int anioPublicacion;
 
+    @NotBlank(message = "El género no puede estar vacío")
     @Column(name = "GENERO")
     private String genero;
 

@@ -1,8 +1,11 @@
 package com.biblioteca.exception;
 
 import java.time.LocalDateTime;
+import java.util.stream.Collectors;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
@@ -44,6 +47,25 @@ public class GlobalExceptionHandler {
                 "Se encontraron registros con los mismos datos. Por favor, contacte al administrador.",
                 request.getDescription(false));
         return new ResponseEntity<>(message, HttpStatus.CONFLICT);
+    }
+
+    // Maneja errores de validación de campos (@Valid)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ErrorMessage> handleValidationExceptions(MethodArgumentNotValidException ex, WebRequest request) {
+        // Obtenemos todos los errores de los campos y los unimos en un solo string
+        String errores = ex.getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .map(error -> error.getDefaultMessage())
+                .collect(Collectors.joining(" - "));
+
+        ErrorMessage message = new ErrorMessage(
+                HttpStatus.BAD_REQUEST.value(),
+                LocalDateTime.now(),
+                "Error de validación: " + errores,
+                request.getDescription(false));
+
+        return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
     }
 
 }

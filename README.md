@@ -37,10 +37,10 @@ Para garantizar la integridad de la base de datos en **Oracle Cloud**, el sistem
 
 | Método | Ruta | Descripción |
 | :--- | :--- | :--- |
-| **GET** | `/libros/{id}` | Recupera la información de un libro específico. |
-| **POST** | `/libros` | Registra un nuevo libro (Normaliza y valida duplicados). |
-| **PUT** | `/libros/{id}` | Actualiza datos de un libro (Verifica existencia). |
-| **DELETE** | `/libros/{id}` | Elimina un registro de la base de datos. |
+| **GET** | `/api/libros/{id}` | Recupera la información de un libro específico. |
+| **POST** | `/api/libros` | Registra un nuevo libro (Normaliza y valida duplicados). |
+| **PUT** | `/api/libros/{id}` | Actualiza datos de un libro (Verifica existencia). |
+| **DELETE** | `/api/libros/{id}` | Elimina un registro de la base de datos. |
 
 ---
 

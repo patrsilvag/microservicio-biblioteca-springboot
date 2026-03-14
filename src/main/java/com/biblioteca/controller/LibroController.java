@@ -1,6 +1,7 @@
 package com.biblioteca.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,9 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.biblioteca.model.Libro;
 import com.biblioteca.service.LibroService;
+import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/libros")
+@RequestMapping("/api/libros")
 public class LibroController {
 
     @Autowired
@@ -31,13 +33,13 @@ public class LibroController {
 
     // POST - crear libro
     @PostMapping
-    public ResponseEntity<Libro> crearLibro(@RequestBody Libro libro) {
-        return new ResponseEntity<>(libroService.crearLibro(libro), org.springframework.http.HttpStatus.CREATED);
+    public ResponseEntity<Libro> crearLibro(@Valid @RequestBody Libro libro) {
+        return new ResponseEntity<>(libroService.crearLibro(libro), HttpStatus.CREATED);
     }
 
     // PUT - actualizar libro
     @PutMapping("/{id}")
-    public Libro actualizarLibro(@PathVariable Long id, @RequestBody Libro libro) {
+    public Libro actualizarLibro(@PathVariable Long id, @Valid @RequestBody Libro libro) {
         return libroService.actualizarLibro(id, libro);
     }
 
