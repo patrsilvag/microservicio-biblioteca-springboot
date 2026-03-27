@@ -62,4 +62,9 @@ public class LibroService {
         // 3. Si existe, procedemos al borrado
         libroRepository.deleteById(id);
     }
+
+    // Agrega este método al final de la clase LibroService
+    public java.util.List<Libro> obtenerTodos() {
+        return libroRepository.findAll();
+    }
 }

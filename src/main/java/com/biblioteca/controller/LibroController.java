@@ -11,17 +11,25 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin; // 1. Importación necesaria
 
 import com.biblioteca.model.Libro;
 import com.biblioteca.service.LibroService;
 import jakarta.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/libros")
+@CrossOrigin(origins = "http://localhost:4200") // 2. Único cambio aplicado
 public class LibroController {
 
     @Autowired
     private LibroService libroService;
+
+    @GetMapping
+    public List<Libro> listarTodos() {
+        return libroService.obtenerTodos();
+    }
 
     // GET - obtener libro por ID
     @GetMapping("/{id}")
