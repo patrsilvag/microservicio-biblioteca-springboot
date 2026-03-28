@@ -44,3 +44,4 @@ wallets/
 # Ignora archivos de propiedades con contraseñas (opcional pero recomendado)
 # Si quieres subir la estructura pero no tus claves, usa un application.properties.example
 application.properties
+application-dev.properties
