@@ -45,10 +45,12 @@ public class LibroController {
         return new ResponseEntity<>(libroService.crearLibro(libro), HttpStatus.CREATED);
     }
 
-    // PUT - actualizar libro
+    // PUT - actualizar libro (Versión con ResponseEntity para mayor consistencia)
     @PutMapping("/{id}")
-    public Libro actualizarLibro(@PathVariable Long id, @Valid @RequestBody Libro libro) {
-        return libroService.actualizarLibro(id, libro);
+    public ResponseEntity<Libro> actualizarLibro(@PathVariable Long id,
+            @Valid @RequestBody Libro libro) {
+        Libro actualizado = libroService.actualizarLibro(id, libro);
+        return ResponseEntity.ok(actualizado); // Devuelve 200 OK con el objeto actualizado
     }
 
     // DELETE - eliminar libro

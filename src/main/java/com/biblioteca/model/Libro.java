@@ -11,10 +11,14 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-
+import lombok.*;
 
 @Entity
 @Table(name = "Libro")
+@Data // Genera automáticamente Getters, Setters, toString, etc.
+@NoArgsConstructor // Genera automáticamente el constructor vacío para JPA
+@AllArgsConstructor // Genera automáticamente el constructor con todos los campos para el Builder
+@Builder // Implementación del Patrón de Diseño solicitado
 public class Libro {
 
     @Id
@@ -40,54 +44,6 @@ public class Libro {
     @Column(name = "GENERO")
     private String genero;
 
-    public Libro() {
-    }
-
-    public Libro(Long id, String titulo, String autor, int anioPublicacion, String genero) {
-        this.id = id;
-        this.titulo = titulo;
-        this.autor = autor;
-        this.anioPublicacion = anioPublicacion;
-        this.genero = genero;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public String getAutor() {
-        return autor;
-    }
-
-    public void setAutor(String autor) {
-        this.autor = autor;
-    }
-
-    public int getAnioPublicacion() {
-        return anioPublicacion;
-    }
-
-    public void setAnioPublicacion(int anioPublicacion) {
-        this.anioPublicacion = anioPublicacion;
-    }
-
-    public String getGenero() {
-        return genero;
-    }
-
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
+    // NO ESCRIBIR CONSTRUCTORES, GETTERS NI SETTERS AQUÍ.
+    // Lombok se encarga de todo gracias a las anotaciones superiores.
 }
